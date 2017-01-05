@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        Body{background-image:url(a.jpg) ;background-attachment:fixed;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;}
+    </style>
+    <meta charset="UTF-8">
+    <title>春闱科技年会抽奖</title>
+</head>
+<body>
+ <section>
+     <div >
+         <div class="pull-left" ><button class="btn btn-lg btn-active" id="showList">中奖名单</button></div>
+         <div class="row" style="margin-top:300px">
+             <div class="col-sm-offset-3" >
+                 <div class="col-sm-8 alert alert-danger text-center" style="height: 150px;font-size:3em;text-align: center" id="name"></div>
+             </div>
+             <div class="col-sm-2" ></div>
+         </div>
+         <div class="row" style="margin-top:30px">
+             <div class="col-sm-offset-5" >
+                 <button class="btn btn-lg btn-primary" id="btntdj" >特等奖</button>
+                 <button class="btn btn-lg btn-primary" id="btnydj" >一等奖</button>
+                 <button class="btn btn-lg btn-primary" id="btnedj" >二等奖</button>
+                 <button class="btn btn-lg btn-primary" id="btnsdj" >三等奖</button>
+             </div>
+         </div>
+     </div>
+ </section>
+ <div id="modal" class="modal fade bs-example-modal-lg">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                 <h4 class="modal-title">中奖名单</h4>
+             </div>
+             <div class="modal-body">
+                 <div class="row">
+                     <div class="alert alert-danger">特等奖</div>
+                     </div>
+                 <div class="row">
+                     <div id="divtdj"></div>
+                 </div>
+                 <div class="row">
+                     <div class="alert alert-warning">一等奖</div>
+                 </div>
+                 <div class="row">
+                     <div id="divydj"></div>
+                 </div>
+                 <div class="row">
+                     <div class="alert alert-info">二等奖</div>
+                 </div>
+                 <div class="row">
+                     <div id="divedj"></div>
+                 </div>
+                 <div class="row">
+                     <div class="alert alert-success">三等奖</div>
+                 </div>
+                 <div class="row">
+                     <div id="divsdj"></div>
+                 </div>
+                 </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-default" id="clearLocal">清空</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+             </div>
+         </div><!-- /.modal-content -->
+     </div><!-- /.modal-dialog -->
+ </div>
+ <footer >
+     <blockquote>
+         <h4>注意：</h4>
+         <p>本程序公平公正，欢迎查阅监督。抽奖过程不要刷新页面，以免数据丢失</p>
+     </blockquote>
+ </footer>
+ <audio id="audio" controls="controls" style="display: none">
+     <source src="1794.wav" type="audio/mpeg">
+     Your browser does not support the audio tag.
+ </audio>
+</body>
+<script type="text/javascript" src="js/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="layer/layer.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var mp3 =$("#audio")[0];
+        var xinm = new Array();
+        xinm[0] = "靳利强-187224457930-技术研发";
+        xinm[1] = "王春玺-2-技术研发";
+        xinm[2] = "朱育刚-3-技术研发";
+        xinm[3] = "李大宝-4-技术研发";
+        xinm[4] = "秦  岭-5-技术研发";
+        xinm[5] = "李召慧-6-技术研发";
+        xinm[6] = "翟康宁-7-技术研发";
+        xinm[7] = "赵  娜-8-技术研发";
+        xinm[8] = "陈玲玲-9-技术研发";
+        xinm[9] = "黄文魁-10-技术研发";
+        var tdj=new Array();//特等奖名单
+        var ydj=new Array();//一等奖名单
+        var edj=new Array();//二等奖名单
+        var sdj=new Array();//三等奖名单
+        var nametxt = $('#name');
+        var pcount = xinm.length-1;//参加人数
+        var runing = true;
+        var num = 0;
+        var t;
+//开始停止
+        $('#btntdj').click(function () {
+            if(tdj.length==3){
+                layer.alert("特等奖抽完啦");
+                return false;
+            }
+            if (runing) {
+                runing = false;
+                $(this).removeClass('btn-primary').addClass('btn-danger');
+                $(this).html('停止');
+                startNum();
+            } else {
+                runing = true;
+                $(this).removeClass('btn-danger').addClass('btn-primary');
+                $(this).html('特等奖');
+                stop();
+                save("t");
+            }
+        });
+        $('#btnydj').click(function () {
+            if(ydj.length==1){
+                layer.alert("一等奖抽完啦");
+                return false;
+            }
+            if (runing) {
+                runing = false;
+                $(this).removeClass('btn-primary').addClass('btn-danger');
+                $(this).html('停止');
+                startNum();
+            } else {
+                runing = true;
+                $(this).removeClass('btn-danger').addClass('btn-primary');
+                $(this).html('一等奖');
+                stop();
+                save("y");
+            }
+        });
+        $('#btnedj').click(function () {
+            if(edj.length==2){
+                layer.alert("二等奖抽完啦");
+                return false;
+            }
+            if (runing) {
+                runing = false;
+                $(this).removeClass('btn-primary').addClass('btn-danger');
+                $(this).html('停止');
+                startNum();
+            } else {
+                runing = true;
+                $(this).removeClass('btn-danger').addClass('btn-primary');
+                $(this).html('二等奖');
+                stop();
+                save("e");
+            }
+        });
+        $('#btnsdj').click(function () {
+            if(sdj.length==3){
+                layer.alert("三等奖抽完啦");
+                return false;
+            }
+            if (runing) {
+                runing = false;
+                $(this).removeClass('btn-primary').addClass('btn-danger');
+                $(this).html('停止');
+                startNum();
+            } else {
+                runing = true;
+                $(this).removeClass('btn-danger').addClass('btn-primary');
+                $(this).html('三等奖');
+                stop();
+                save("s");
+            }
+        });
+//循环参加名单
+        function startNum() {
+            mp3.play();
+            num = Math.floor(Math.random() * pcount);
+            nametxt.html(xinm[num]);
+            t = setTimeout(startNum, 0);
+        }
+//停止跳动
+        function stop() {
+            mp3.pause();
+            pcount = xinm.length-1;
+            clearInterval(t);
+            t = 0;
+        }
+        function save(level) {
+            if(level=='t'){
+                var removeItem =xinm[num];
+                tdj.push(removeItem);
+                xinm = $.grep(xinm, function(value) {
+                    return value != removeItem;
+                });
+                console.log(xinm);
+                localStorage.setItem("tdj",tdj);
+            }
+            if(level=='y'){
+                var removeItem =xinm[num];
+                ydj.push(removeItem);
+                xinm = $.grep(xinm, function(value) {
+                    return value != removeItem;
+                });
+                console.log(xinm);
+                localStorage.setItem("ydj",ydj);
+            }
+            if(level=='e'){
+                var removeItem =xinm[num];
+                edj.push(removeItem);
+                xinm = $.grep(xinm, function(value) {
+                    return value != removeItem;
+                });
+                localStorage.setItem("edj",edj);
+            }
+            if(level=='s'){
+                var removeItem =xinm[num];
+                sdj.push(removeItem);
+                xinm = $.grep(xinm, function(value) {
+                    return value != removeItem;
+                });
+                localStorage.setItem("sdj",sdj);
+            }
+        }
+        function createHtml(array) {
+            if(array==""||array==null){
+                return "";
+            }
+            var items =array.split(",");
+            var div='';
+            for (i=0;i<items.length;i++){
+                div+="<div class='col-sm-6'><p>"+items[i]+"</p></div>";
+            }
+            return div;
+        }
+        $("#showList").click(function () {
+                    $("#divtdj").html(createHtml(localStorage.getItem("tdj")));
+                    $("#divydj").html(createHtml(localStorage.getItem("ydj")));
+                    $("#divedj").html(createHtml(localStorage.getItem("edj")));
+                    $("#divsdj").html(createHtml(localStorage.getItem("sdj")));
+            $("#modal").modal('toggle');
+                });
+        $("#clearLocal").click(function () {
+            localStorage.clear();
+            layer.alert("数据已清空");
+            $("#modal").modal('toggle');
+        });
+    });
+</script>
+</html>

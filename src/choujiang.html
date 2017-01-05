@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        Body{background-image:url(b.jpg) ;background-attachment:fixed;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;}
+        #con{
+            position: absolute;
+            top: 80%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform:  translateY(-50%);
+            -ms-transform:  translateY(-50%);
+            -o-transform:  translateY(-50%);
+            transform:  translateY(-50%);
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>春闱科技年会抽奖</title>
+</head>
+<body >
+<div onclick="toUrl()" id="con" class="col-sm-offset-6">
+ <button class="btn btn-lg btn-block btn-primary" onclick="toUrl()">去抽奖</button>
+</div>
+</body>
+<script type="text/javascript" src="js/jQuery-2.1.4.min.js"></script>
+<script>
+    function toUrl() {
+        window.location.href="index.html"
+    }
+</script>
+</html>

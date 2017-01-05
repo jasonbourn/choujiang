@@ -4,28 +4,43 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <style>
         Body{background-image:url(a.jpg) ;background-attachment:fixed;background-repeat:no-repeat;background-size:cover;-moz-background-size:cover;-webkit-background-size:cover;}
+        #con{
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform:  translateY(-50%);
+            -ms-transform:  translateY(-50%);
+            -o-transform:  translateY(-50%);
+            transform:  translateY(-50%);
+        }
     </style>
     <meta charset="UTF-8">
     <title>春闱科技年会抽奖</title>
 </head>
 <body>
- <section>
-     <div >
+ <section >
+     <div  class="container col-sm-12" id="con">
          <div class="pull-left" ><button class="btn btn-lg btn-active" id="showList">中奖名单</button></div>
-         <div class="row" style="margin-top:300px">
+         <div class="row">
              <div class="col-sm-offset-3" >
                  <div class="col-sm-8 alert alert-danger text-center" style="height: 150px;font-size:3em;text-align: center" id="name"></div>
              </div>
-             <div class="col-sm-2" ></div>
+             <div class="col-sm-1" ></div>
          </div>
-         <div class="row" style="margin-top:30px">
-             <div class="col-sm-offset-5" >
+         <div class="row">
+             <div class="col-sm-offset-4" >
                  <button class="btn btn-lg btn-primary" id="btntdj" >特等奖</button>
                  <button class="btn btn-lg btn-primary" id="btnydj" >一等奖</button>
                  <button class="btn btn-lg btn-primary" id="btnedj" >二等奖</button>
                  <button class="btn btn-lg btn-primary" id="btnsdj" >三等奖</button>
              </div>
          </div>
+         <footer >
+             <blockquote>
+                 <h4>注意：</h4>
+                 <p>本程序公平公正，欢迎查阅监督。抽奖过程不要刷新页面，以免数据丢失</p>
+             </blockquote>
+         </footer>
      </div>
  </section>
  <div id="modal" class="modal fade bs-example-modal-lg">
@@ -68,12 +83,7 @@
          </div><!-- /.modal-content -->
      </div><!-- /.modal-dialog -->
  </div>
- <footer >
-     <blockquote>
-         <h4>注意：</h4>
-         <p>本程序公平公正，欢迎查阅监督。抽奖过程不要刷新页面，以免数据丢失</p>
-     </blockquote>
- </footer>
+
  <audio id="audio" controls="controls" style="display: none">
      <source src="1794.wav" type="audio/mpeg">
      Your browser does not support the audio tag.

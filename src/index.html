@@ -325,7 +325,6 @@
             mp3.play();
             num =randomNum();
             nametxt.html(xinm[num]);
-            console.log(num);
             m=setTimeout(startNumT,0);
         }
         function randomNum() {
@@ -346,7 +345,6 @@
             num = Math.floor(Math.random() * pcount);
             nametxt.html(xinm[num]);
             t = setTimeout(startNum, 0);
-            console.log("t:"+t);
         }
 //停止跳动
         function stop() {
@@ -362,7 +360,6 @@
                 xinm = $.grep(xinm, function(value) {
                     return value != removeItem;
                 });
-                console.log(xinm);
                 localStorage.setItem("tdj",tdj);
             }
             if(level=='y'){
@@ -371,7 +368,6 @@
                 xinm = $.grep(xinm, function(value) {
                     return value != removeItem;
                 });
-                console.log(xinm);
                 localStorage.setItem("ydj",ydj);
             }
             if(level=='e'){

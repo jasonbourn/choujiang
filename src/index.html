@@ -408,6 +408,7 @@
         $("#clearLocal").click(function () {
             localStorage.clear();
             layer.alert("数据已清空");
+            window.location.reload();
             $("#modal").modal('toggle');
         });
     });

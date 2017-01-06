@@ -320,7 +320,7 @@
                     return true;
             }
             return false;
-        }
+        };
         function startNumT() {
             mp3.play();
             num =randomNum();
@@ -331,8 +331,11 @@
            var k = Math.floor(Math.random() * pcount);
             if(notTdj.in_array(xinm[k])){
                 randomNum();
+            }else {
+
+                return k;
             }
-            return k;
+
         }
         function stopT() {
             mp3.pause();
